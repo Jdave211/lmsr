@@ -47,12 +47,21 @@ is a consequence of one function rather than a promise made in six places.
 `b` is **depth**. It is chosen when the market opens and never changes. It is
 not a budget.
 
-<img src="assets/probability-path.svg" alt="A binary market: probability of YES and NO over thirty trades" width="100%">
+## Two contract types
 
-*A binary market, opened at 50/50, after thirty simulated participants. The two
-lines are one event and its complement. The maker's worst case is printed on the
-card, because a probability without its risk is a sales pitch. Live demo:
-[jdave211.github.io/lmsr](https://jdave211.github.io/lmsr/).*
+Binary and multi-outcome markets use the same cost function; only the state
+vector changes. Both are engine output, not mock-ups.
+
+<img src="assets/market-binary.svg" alt="Binary contract: will Nvidia beat consensus EPS this quarter?" width="100%">
+
+*Binary: one event, two complementary prices, one depth, one worst case.*
+
+<img src="assets/market-multi.svg" alt="Multi-outcome contract: which lab has the best model on 31 Dec 2026?" width="100%">
+
+*Multi-outcome: six labs, one distribution. The bands sum to 1 at every point in
+time, because the prices always do.*
+
+Live demo: [jdave211.github.io/lmsr](https://jdave211.github.io/lmsr/).
 
 ---
 
@@ -61,13 +70,13 @@ card, because a probability without its risk is a sales pitch. Live demo:
 ```python
 from lmsr import Market
 
-m = Market(["rain", "no rain"], b=500.0, probabilities=[0.3, 0.7])
+m = Market(["beats", "misses"], b=2_000, probabilities=[0.62, 0.38])
 
-m.prices          # (0.3, 0.7) -- exactly what you asked for
-m.max_loss        # 601.99 -- b * -ln(0.3), not b
-m.buy("rain", 120)             # shares
-m.buy_for_cash("rain", 50.0)   # cash, fee included
-m.buy_no("rain", 40)           # 40 NO contracts, each pays 1
+m.prices          # (0.62, 0.38) -- exactly what you asked for
+m.max_loss        # 1,936 -- b * -ln(0.38), not b
+m.buy("beats", 120)             # shares
+m.buy_for_cash("beats", 50.0)   # cash, fee included
+m.buy_no("beats", 40)           # 40 NO contracts, each pays 1
 m.worst_case_loss              # <= m.max_loss, always
 ```
 
@@ -174,7 +183,7 @@ lmsr/
   simulate.py   noisy traders, for the study
 tests/          57 tests, most of them exact properties
 examples/       depth study, chart generator, generated results
-assets/         the two SVGs used above
+assets/         the three SVGs used above
 docs/           design notes, plus the static market page (index.html)
 ```
 

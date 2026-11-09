@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 468" width="880" height="468" role="img" aria-label="Binary contract: Will Nvidia beat consensus EPS this quarter?">
+<rect width="880" height="468" fill="#000000"/>
+<rect x="0.5" y="0.5" width="879" height="467" rx="2" fill="none" stroke="#292929"/>
+<text x="32.0" y="38.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="9.5" fill="#8a8a8a" text-anchor="start" font-weight="400" letter-spacing="1.6">LMSR  ·  BINARY CONTRACT  ·  SIMULATED</text>
+<text x="32.0" y="72.0" font-family="Georgia, 'Times New Roman', serif" font-size="24" fill="#f7f7f7" text-anchor="start" font-weight="400">Will Nvidia beat consensus EPS this quarter?</text>
+<circle cx="35.0" cy="100.0" r="3.2" fill="#f7f7f7"/>
+<text x="46.0" y="104.0" font-family="ui-sans-serif, -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="12.5" fill="#f7f7f7" text-anchor="start" font-weight="400">YES 62.6%</text>
+<circle cx="160.0" cy="100.0" r="3.2" fill="#adadad"/>
+<text x="171.0" y="104.0" font-family="ui-sans-serif, -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="12.5" fill="#adadad" text-anchor="start" font-weight="400">NO 37.4%</text>
+<text x="32.0" y="126.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10" fill="#8a8a8a" text-anchor="start" font-weight="400">+12.6 pts since open   ·   resolves 19 Nov 2026</text>
+<line x1="58.0" y1="318.0" x2="800.0" y2="318.0" stroke="#292929" stroke-width="0.8"/>
+<text x="48.0" y="321.5" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10" fill="#8a8a8a" text-anchor="end" font-weight="400">25%</text>
+<line x1="58.0" y1="264.0" x2="800.0" y2="264.0" stroke="#292929" stroke-width="0.8"/>
+<text x="48.0" y="267.5" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10" fill="#8a8a8a" text-anchor="end" font-weight="400">50%</text>
+<line x1="58.0" y1="210.0" x2="800.0" y2="210.0" stroke="#292929" stroke-width="0.8"/>
+<text x="48.0" y="213.5" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10" fill="#8a8a8a" text-anchor="end" font-weight="400">75%</text>
+<line x1="58.0" y1="372.0" x2="800.0" y2="372.0" stroke="#292929" stroke-width="0.8"/>
+<path d="M 58.00,264.00 L 82.73,271.80 L 107.47,279.04 L 132.20,270.15 L 156.93,277.51 L 181.67,284.34 L 206.40,290.67 L 231.13,280.94 L 255.87,287.52 L 280.60,293.63 L 305.33,283.68 L 330.07,290.06 L 354.80,295.98 L 379.53,285.87 L 404.27,276.49 L 429.00,267.78 L 453.73,275.31 L 478.47,282.30 L 503.20,288.78 L 527.93,294.79 L 552.67,284.76 L 577.40,275.46 L 602.13,282.43 L 626.87,273.30 L 651.60,264.82 L 676.33,272.57 L 701.07,279.75 L 725.80,270.81 L 750.53,278.12 L 775.27,284.91 L 800.00,291.20" fill="none" stroke="#adadad" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M 58.00,264.00 L 82.73,256.20 L 107.47,248.96 L 132.20,257.85 L 156.93,250.49 L 181.67,243.66 L 206.40,237.33 L 231.13,247.06 L 255.87,240.48 L 280.60,234.37 L 305.33,244.32 L 330.07,237.94 L 354.80,232.02 L 379.53,242.13 L 404.27,251.51 L 429.00,260.22 L 453.73,252.69 L 478.47,245.70 L 503.20,239.22 L 527.93,233.21 L 552.67,243.24 L 577.40,252.54 L 602.13,245.57 L 626.87,254.70 L 651.60,263.18 L 676.33,255.43 L 701.07,248.25 L 725.80,257.19 L 750.53,249.88 L 775.27,243.09 L 800.00,236.80" fill="none" stroke="#f7f7f7" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="58.0" y="392.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="400">0</text>
+<text x="305.3" y="392.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="400">10</text>
+<text x="552.7" y="392.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="400">20</text>
+<text x="800.0" y="392.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="400">30</text>
+<circle cx="800.0" cy="236.8" r="4.0" fill="#f7f7f7"/>
+<text x="812.0" y="240.8" font-family="ui-sans-serif, -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="11" fill="#f7f7f7" text-anchor="start" font-weight="400">63%</text>
+<circle cx="800.0" cy="291.2" r="4.0" fill="#adadad"/>
+<text x="812.0" y="295.2" font-family="ui-sans-serif, -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="11" fill="#adadad" text-anchor="start" font-weight="400">37%</text>
+<line x1="32.0" y1="414.0" x2="848.0" y2="414.0" stroke="#292929" stroke-width="0.8"/>
+<text x="32.0" y="438.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10.5" fill="#adadad" text-anchor="start" font-weight="400">b = 2,000   ·   30 trades   ·   worst-case loss 1,386</text>
+</svg>

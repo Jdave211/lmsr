@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 320" width="880" height="320" role="img" aria-label="Price impact of a 150 purchase against depth">
+<rect width="880" height="320" fill="#000000"/>
+<text x="24.0" y="34.0" font-family="Georgia, 'Times New Roman', serif" font-size="17" fill="#f7f7f7" text-anchor="start" font-weight="400">What one trade does</text>
+<text x="24.0" y="52.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10.5" fill="#8a8a8a" text-anchor="start" font-weight="400">price move in a 50% market from a 150 buy</text>
+<text x="24.0" y="74.0" font-family="ui-sans-serif, -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="start" font-weight="400">move, percentage points</text>
+<line x1="64.0" y1="254.0" x2="850.0" y2="254.0" stroke="#292929" stroke-width="0.8"/>
+<text x="54.0" y="257.5" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10" fill="#8a8a8a" text-anchor="end" font-weight="400">0</text>
+<line x1="64.0" y1="215.5" x2="850.0" y2="215.5" stroke="#292929" stroke-width="0.8"/>
+<text x="54.0" y="219.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10" fill="#8a8a8a" text-anchor="end" font-weight="400">10</text>
+<line x1="64.0" y1="177.0" x2="850.0" y2="177.0" stroke="#292929" stroke-width="0.8"/>
+<text x="54.0" y="180.5" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10" fill="#8a8a8a" text-anchor="end" font-weight="400">20</text>
+<line x1="64.0" y1="138.5" x2="850.0" y2="138.5" stroke="#292929" stroke-width="0.8"/>
+<text x="54.0" y="142.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10" fill="#8a8a8a" text-anchor="end" font-weight="400">30</text>
+<line x1="64.0" y1="100.0" x2="850.0" y2="100.0" stroke="#292929" stroke-width="0.8"/>
+<text x="54.0" y="103.5" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10" fill="#8a8a8a" text-anchor="end" font-weight="400">40</text>
+<line x1="64.0" y1="254.0" x2="64.0" y2="259.0" stroke="#292929" stroke-width="0.8"/>
+<text x="64.0" y="272.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="400">100</text>
+<line x1="355.2" y1="254.0" x2="355.2" y2="259.0" stroke="#292929" stroke-width="0.8"/>
+<text x="355.2" y="272.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="400">1k</text>
+<line x1="646.4" y1="254.0" x2="646.4" y2="259.0" stroke="#292929" stroke-width="0.8"/>
+<text x="646.4" y="272.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="400">10k</text>
+<text x="457.0" y="296.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="400">depth b (log scale)</text>
+<path d="M 64.00,104.45 L 71.94,108.56 L 79.88,112.77 L 87.82,117.07 L 95.76,121.43 L 103.70,125.84 L 111.64,130.28 L 119.58,134.72 L 127.52,139.16 L 135.45,143.57 L 143.39,147.94 L 151.33,152.25 L 159.27,156.50 L 167.21,160.67 L 175.15,164.75 L 183.09,168.74 L 191.03,172.63 L 198.97,176.41 L 206.91,180.07 L 214.85,183.62 L 222.79,187.05 L 230.73,190.36 L 238.67,193.54 L 246.61,196.60 L 254.55,199.55 L 262.48,202.37 L 270.42,205.07 L 278.36,207.66 L 286.30,210.12 L 294.24,212.48 L 302.18,214.73 L 310.12,216.87 L 318.06,218.91 L 326.00,220.85 L 333.94,222.69 L 341.88,224.44 L 349.82,226.10 L 357.76,227.68 L 365.70,229.17 L 373.64,230.59 L 381.58,231.93 L 389.52,233.20 L 397.45,234.39 L 405.39,235.53 L 413.33,236.60 L 421.27,237.61 L 429.21,238.57 L 437.15,239.47 L 445.09,240.32 L 453.03,241.13 L 460.97,241.88 L 468.91,242.60 L 476.85,243.27 L 484.79,243.91 L 492.73,244.51 L 500.67,245.07 L 508.61,245.60 L 516.55,246.10 L 524.48,246.57 L 532.42,247.02 L 540.36,247.43 L 548.30,247.83 L 556.24,248.20 L 564.18,248.55 L 572.12,248.87 L 580.06,249.18 L 588.00,249.47 L 595.94,249.74 L 603.88,250.00 L 611.82,250.24 L 619.76,250.47 L 627.70,250.68 L 635.64,250.88 L 643.58,251.07 L 651.52,251.25 L 659.45,251.41 L 667.39,251.57 L 675.33,251.72 L 683.27,251.85 L 691.21,251.98 L 699.15,252.11 L 707.09,252.22 L 715.03,252.33 L 722.97,252.43 L 730.91,252.52 L 738.85,252.61 L 746.79,252.70 L 754.73,252.78 L 762.67,252.85 L 770.61,252.92 L 778.55,252.99 L 786.48,253.05 L 794.42,253.11 L 802.36,253.16 L 810.30,253.21 L 818.24,253.26 L 826.18,253.30 L 834.12,253.35 L 842.06,253.39 L 850.00,253.42" fill="none" stroke="#f7f7f7" stroke-width="2.0" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="64.0" cy="104.5" r="3.5" fill="#f7f7f7"/>
+<text x="72.0" y="94.5" font-family="ui-sans-serif, -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10" fill="#f7f7f7" text-anchor="start" font-weight="400">38.8 pts</text>
+<circle cx="442.9" cy="240.1" r="3.5" fill="#f7f7f7"/>
+<text x="450.9" y="230.1" font-family="ui-sans-serif, -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10" fill="#f7f7f7" text-anchor="start" font-weight="400">3.6 pts</text>
+<circle cx="850.0" cy="253.4" r="3.5" fill="#f7f7f7"/>
+<text x="842.0" y="243.4" font-family="ui-sans-serif, -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10" fill="#f7f7f7" text-anchor="end" font-weight="400">0.15 pts</text>
+</svg>

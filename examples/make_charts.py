@@ -1,4 +1,4 @@
-"""Generate the market cards and the depth chart as standalone SVG.
+"""Generate the market cards, the explainer chart and the depth chart as SVG.
 
     python examples/make_charts.py
 
@@ -195,6 +195,41 @@ def binary_card(r: dict, spec: dict, out: pathlib.Path) -> str:
     return svg
 
 
+def market_thumb(r: dict, spec: dict, out: pathlib.Path) -> None:
+    """A 3:2 thumbnail for the research index. Big number, two lines, no chrome."""
+    yes = [p[0] for p in r["path"]]
+    no = [1.0 - y for y in yes]
+    n = max(len(yes) - 1, 1)
+
+    w, h = 600, 400
+    left, right, top, bottom = 28, 572, 170, 332
+
+    def xv(i):
+        return _scale(i, 0, n, left, right)
+
+    def yv(p):
+        return _scale(p, 0.0, 1.0, bottom, top)
+
+    body = [
+        f'<rect x="0.5" y="0.5" width="{w - 1}" height="{h - 1}" rx="2" fill="none" stroke="{LINE}"/>',
+        _text(28, 36, "SIMULATED  ·  BINARY", 9.5, DIM, spacing=1.4),
+        _text(28, 64, "YES", 10, DIM),
+        _text(28, 126, f"{yes[-1] * 100:.0f}%", 60, INK, family=SERIF),
+        _text(572, 64, "NO", 10, DIM, "end"),
+        _text(572, 126, f"{no[-1] * 100:.0f}%", 28, MUTED, "end"),
+        _line(left, yv(0.5), right, yv(0.5), LINE, 1.0, "3 5"),
+    ]
+
+    body.append(_poly([(xv(i), yv(p)) for i, p in enumerate(no)], MUTED, 1.6))
+    body.append(_poly([(xv(i), yv(p)) for i, p in enumerate(yes)], INK, 2.6))
+
+    body.append(_dot(xv(n), yv(yes[-1]), 4.5, INK))
+    body.append(_dot(xv(n), yv(no[-1]), 4.5, MUTED))
+    body.append(_text(28, 366, f"b = {spec['b']:,}   ·   {n} trades", 10.5, MUTED))
+
+    out.write_text(_doc(w, h, "Simulated binary market", body))
+
+
 # -- multi-outcome card -----------------------------------------------------
 
 
@@ -333,6 +368,59 @@ def depth_chart(fixed, out: pathlib.Path) -> None:
     out.write_text(_doc(w, h, "Accuracy against worst-case maker loss", body))
 
 
+# -- explainer: what one trade does ----------------------------------------
+
+
+def impact_points(b: float, cash: float = 150.0, p: float = 0.5) -> float:
+    """Price move, in percentage points, from buying with `cash` at price `p`."""
+    shares = b * math.log1p(math.expm1(cash / b) / p)
+    moved = p * math.exp(shares / b)
+    return (moved / (moved + (1.0 - p)) - p) * 100.0
+
+
+def impact_chart(out: pathlib.Path) -> None:
+    w, h = 880, 320
+    left, right, top, bottom = 64, 30, 100, 66
+    lo, hi = 100.0, 50_000.0
+    ylo, yhi = 0.0, 40.0
+
+    def xv(v):
+        return _scale(math.log10(v), math.log10(lo), math.log10(hi), left, w - right)
+
+    def yv(v):
+        return _scale(v, ylo, yhi, h - bottom, top)
+
+    body = [
+        _text(24, 34, "What one trade does", 17, INK, family=SERIF),
+        _text(24, 52, "price move in a 50% market from a 150 buy", 10.5, DIM),
+        _text(24, 74, "move, percentage points", 10, DIM, family=SANS),
+    ]
+
+    for tick in (0, 10, 20, 30, 40):
+        y = yv(tick)
+        body.append(_line(left, y, w - right, y, LINE, 0.8))
+        body.append(_text(left - 10, y + 3.5, str(tick), 10, DIM, "end"))
+    for tick in (100, 1_000, 10_000):
+        x = xv(tick)
+        body.append(_line(x, h - bottom, x, h - bottom + 5, LINE, 0.8))
+        label = f"{tick // 1000}k" if tick >= 1_000 else str(tick)
+        body.append(_text(x, h - bottom + 18, label, 10, DIM, "middle"))
+    body.append(
+        _text((left + w - right) / 2, h - bottom + 42, "depth b (log scale)", 10, DIM, "middle")
+    )
+
+    bs = [10 ** (math.log10(lo) + (math.log10(hi) - math.log10(lo)) * i / 99) for i in range(100)]
+    body.append(_poly([(xv(b), yv(impact_points(b))) for b in bs], INK, 2.0))
+
+    for b, dx, dy, anchor in ((100, 8, -10, "start"), (2_000, 8, -10, "start"), (50_000, -8, -10, "end")):
+        v = impact_points(b)
+        body.append(_dot(xv(b), yv(v), 3.5, INK))
+        body.append(_text(xv(b) + dx, yv(v) + dy, f"{v:.2f} pts" if v < 1 else f"{v:.1f} pts",
+                          10, INK, anchor, SANS))
+
+    out.write_text(_doc(w, h, "Price impact of a 150 purchase against depth", body))
+
+
 # -- demo page --------------------------------------------------------------
 
 DEMO = """<!doctype html>
@@ -426,13 +514,16 @@ def main() -> None:
     )
 
     binary_svg = binary_card(binary, BINARY, assets / "market-binary.svg")
+    market_thumb(binary, BINARY, assets / "thumb-binary.svg")
     multi_svg = multi_card(multi, MULTI, assets / "market-multi.svg")
     write_demo(binary_svg, multi_svg, binary, docs / "index.html")
 
     depth_chart(_series(), assets / "depth-frontier.svg")
+    impact_chart(assets / "impact.svg")
 
-    for name in ("assets/market-binary.svg", "assets/market-multi.svg",
-                 "assets/depth-frontier.svg", "docs/index.html"):
+    for name in ("assets/market-binary.svg", "assets/thumb-binary.svg",
+                 "assets/market-multi.svg", "assets/depth-frontier.svg",
+                 "assets/impact.svg", "docs/index.html"):
         size = (HERE.parent / name).stat().st_size
         print(f"wrote {name}  ({size:,} bytes)")
 

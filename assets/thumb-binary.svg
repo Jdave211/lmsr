@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="600" height="400" role="img" aria-label="Simulated binary market">
+<rect width="600" height="400" fill="#000000"/>
+<rect x="0.5" y="0.5" width="599" height="399" rx="2" fill="none" stroke="#292929"/>
+<text x="28.0" y="36.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="9.5" fill="#8a8a8a" text-anchor="start" font-weight="400" letter-spacing="1.4">SIMULATED  ·  BINARY</text>
+<text x="28.0" y="64.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10" fill="#8a8a8a" text-anchor="start" font-weight="400">YES</text>
+<text x="28.0" y="126.0" font-family="Georgia, 'Times New Roman', serif" font-size="60" fill="#f7f7f7" text-anchor="start" font-weight="400">63%</text>
+<text x="572.0" y="64.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10" fill="#8a8a8a" text-anchor="end" font-weight="400">NO</text>
+<text x="572.0" y="126.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="28" fill="#adadad" text-anchor="end" font-weight="400">37%</text>
+<line x1="28.0" y1="251.0" x2="572.0" y2="251.0" stroke="#292929" stroke-width="1.0" stroke-dasharray="3 5"/>
+<path d="M 28.00,251.00 L 46.13,256.85 L 64.27,262.28 L 82.40,255.61 L 100.53,261.13 L 118.67,266.25 L 136.80,271.01 L 154.93,263.71 L 173.07,268.64 L 191.20,273.22 L 209.33,265.76 L 227.47,270.55 L 245.60,274.99 L 263.73,267.40 L 281.87,260.36 L 300.00,253.83 L 318.13,259.48 L 336.27,264.72 L 354.40,269.58 L 372.53,274.09 L 390.67,266.57 L 408.80,259.59 L 426.93,264.83 L 445.07,257.97 L 463.20,251.62 L 481.33,257.43 L 499.47,262.81 L 517.60,256.11 L 535.73,261.59 L 553.87,266.68 L 572.00,271.40" fill="none" stroke="#adadad" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M 28.00,251.00 L 46.13,245.15 L 64.27,239.72 L 82.40,246.39 L 100.53,240.87 L 118.67,235.75 L 136.80,230.99 L 154.93,238.29 L 173.07,233.36 L 191.20,228.78 L 209.33,236.24 L 227.47,231.45 L 245.60,227.01 L 263.73,234.60 L 281.87,241.64 L 300.00,248.17 L 318.13,242.52 L 336.27,237.28 L 354.40,232.42 L 372.53,227.91 L 390.67,235.43 L 408.80,242.41 L 426.93,237.17 L 445.07,244.03 L 463.20,250.38 L 481.33,244.57 L 499.47,239.19 L 517.60,245.89 L 535.73,240.41 L 553.87,235.32 L 572.00,230.60" fill="none" stroke="#f7f7f7" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="572.0" cy="230.6" r="4.5" fill="#f7f7f7"/>
+<circle cx="572.0" cy="271.4" r="4.5" fill="#adadad"/>
+<text x="28.0" y="366.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10.5" fill="#adadad" text-anchor="start" font-weight="400">b = 2,000   ·   30 trades</text>
+</svg>

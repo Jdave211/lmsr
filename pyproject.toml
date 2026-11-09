@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lmsr-engine"
+version = "0.1.0"
+description = "A numerically honest LMSR market maker: fixed depth, exact prices, provable loss bound."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "Dave Jaga" }]
+dependencies = []
+keywords = ["lmsr", "prediction-markets", "market-maker", "scoring-rules"]
+classifiers = [
+  "Intended Audience :: Financial and Insurance Industry",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Topic :: Office/Business :: Financial",
+]
+
+[project.urls]
+Homepage = "https://github.com/Jdave211/lmsr"
+Source = "https://github.com/Jdave211/lmsr"
+
+[tool.setuptools.packages.find]
+include = ["lmsr*"]

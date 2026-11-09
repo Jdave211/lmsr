@@ -1,0 +1,40 @@
+name: Feature request
+description: A new operation, contract type, or scoring rule.
+title: "[feature] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        The library is deliberately small. The first question for any addition
+        is whether it can be expressed as an operation on `q`, priced by
+        `C(q') - C(q)`. If it cannot, say why it belongs anyway.
+  - type: textarea
+    id: problem
+    attributes:
+      label: The problem
+      description: What are you trying to do that the current API makes awkward?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed API
+      description: A signature and a short example, if you have one.
+      render: python
+  - type: textarea
+    id: invariant
+    attributes:
+      label: Effect on the invariants
+      description: Does it preserve path independence and the loss bound? How would a test check it?
+    validations:
+      required: true
+  - type: checkboxes
+    id: constraints
+    attributes:
+      label: Constraints
+      options:
+        - label: This can be implemented with the standard library only.
+          required: false
+        - label: I am willing to open a pull request.
+          required: false

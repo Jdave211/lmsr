@@ -1,5 +1,7 @@
 # lmsr
 
+[![ci](https://github.com/Jdave211/lmsr/actions/workflows/ci.yml/badge.svg)](https://github.com/Jdave211/lmsr/actions/workflows/ci.yml)
+
 A self-contained market maker for the Logarithmic Market Scoring Rule.
 
 Exact prices, a bounded worst case, and 57 tests that assert equalities instead
@@ -204,6 +206,15 @@ python -m unittest discover -s tests -v
 python examples/depth_study.py
 ```
 
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md). The short version: the state is a vector
+`q`, every operation is `C(q') - C(q)`, the package stays standard-library
+only, and a change to the engine needs a test that fails on the old behaviour.
+
+Security reports go through [private advisories](https://github.com/Jdave211/lmsr/security/advisories/new),
+not public issues. The project follows the [Contributor Covenant](CODE_OF_CONDUCT.md).
+
 ## License
 
-MIT. See [LICENSE](LICENSE).
+MIT. See [LICENSE](LICENSE). Contributions are accepted under the same terms.

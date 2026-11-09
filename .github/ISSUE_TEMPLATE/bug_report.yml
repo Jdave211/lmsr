@@ -1,0 +1,58 @@
+name: Bug report
+description: A price, a quote, or an invariant is wrong.
+title: "[bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Most bugs in this library are invariant violations. Please include the
+        exact calls and the numbers, not a description of the numbers.
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+      description: Which invariant should hold, and what value you expected.
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: What happened
+      description: The actual value, traceback, or output.
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Minimal reproduction
+      description: A few lines that run against the installed package.
+      render: python
+      placeholder: |
+        from lmsr import Market
+        m = Market(["a", "b"], b=1000, probabilities=[0.5, 0.5])
+        ...
+    validations:
+      required: true
+  - type: dropdown
+    id: invariant
+    attributes:
+      label: Which invariant is affected?
+      options:
+        - Prices sum to one
+        - Opening price / prior
+        - Path independence
+        - Loss bound
+        - Numerics (overflow / underflow)
+        - NO or bundle pricing
+        - Fees
+        - Not an invariant (API, docs, packaging)
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version and Python
+      description: Output of `python -c "import lmsr, sys; print(lmsr.__version__, sys.version)"`
+    validations:
+      required: true

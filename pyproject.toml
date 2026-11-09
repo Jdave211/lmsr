@@ -22,6 +22,10 @@ classifiers = [
 [project.urls]
 Homepage = "https://github.com/Jdave211/lmsr"
 Source = "https://github.com/Jdave211/lmsr"
+Changelog = "https://github.com/Jdave211/lmsr/blob/main/CHANGELOG.md"
 
 [tool.setuptools.packages.find]
 include = ["lmsr*"]
+
+[tool.setuptools.package-data]
+lmsr = ["py.typed"]

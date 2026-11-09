@@ -60,6 +60,7 @@ def run_market(
         probabilities=None,
         fee_rate=fee_rate,
     )
+    path = [market.prices]
 
     for _ in range(traders):
         belief = perturb(probs, noise, rng)
@@ -71,6 +72,7 @@ def run_market(
             market.buy_for_cash(i, budget)
         except ValueError:
             continue
+        path.append(market.prices)
 
     final = market.prices
     expected_brier = sum(t * brier(final, k) for k, t in enumerate(probs))
@@ -83,4 +85,5 @@ def run_market(
         "volume": market.revenue,
         "prices": final,
         "truth": probs,
+        "path": path,
     }

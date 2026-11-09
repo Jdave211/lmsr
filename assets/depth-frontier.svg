@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 392" width="880" height="392" role="img" aria-label="Accuracy against worst-case maker loss">
+<rect width="880" height="392" fill="#000000"/>
+<text x="24.0" y="34.0" font-family="Georgia, 'Times New Roman', serif" font-size="17" fill="#f7f7f7" text-anchor="start" font-weight="400">What accuracy costs</text>
+<text x="24.0" y="52.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10.5" fill="#8a8a8a" text-anchor="start" font-weight="400">Binary market, truth 80/20, opening at 50/50 · 400 replications per point</text>
+<text x="24.0" y="76.0" font-family="ui-sans-serif, -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="start" font-weight="400">expected Brier score (lower is better)</text>
+<line x1="64.0" y1="298.2" x2="850.0" y2="298.2" stroke="#292929" stroke-width="0.8"/>
+<text x="54.0" y="301.7" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10" fill="#8a8a8a" text-anchor="end" font-weight="400">0.30</text>
+<line x1="64.0" y1="249.2" x2="850.0" y2="249.2" stroke="#292929" stroke-width="0.8"/>
+<text x="54.0" y="252.7" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10" fill="#8a8a8a" text-anchor="end" font-weight="400">0.40</text>
+<line x1="64.0" y1="200.2" x2="850.0" y2="200.2" stroke="#292929" stroke-width="0.8"/>
+<text x="54.0" y="203.7" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10" fill="#8a8a8a" text-anchor="end" font-weight="400">0.50</text>
+<line x1="64.0" y1="151.2" x2="850.0" y2="151.2" stroke="#292929" stroke-width="0.8"/>
+<text x="54.0" y="154.7" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10" fill="#8a8a8a" text-anchor="end" font-weight="400">0.60</text>
+<line x1="124.7" y1="308.0" x2="124.7" y2="313.0" stroke="#292929" stroke-width="0.8"/>
+<text x="124.7" y="326.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="400">100</text>
+<line x1="398.0" y1="308.0" x2="398.0" y2="313.0" stroke="#292929" stroke-width="0.8"/>
+<text x="398.0" y="326.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="400">1k</text>
+<line x1="671.4" y1="308.0" x2="671.4" y2="313.0" stroke="#292929" stroke-width="0.8"/>
+<text x="671.4" y="326.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="400">10k</text>
+<text x="457.0" y="350.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="400">worst-case maker loss (log scale)</text>
+<path d="M 81.13,129.85 L 163.43,223.97 L 272.22,263.76 L 354.52,273.71 L 436.82,278.10 L 545.61,275.46 L 627.91,262.58 L 710.20,242.88 L 818.99,220.97" fill="none" stroke="#f7f7f7" stroke-width="2.0" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="436.8" cy="278.1" r="4.5" fill="#f7f7f7"/>
+<text x="447.8" y="300.1" font-family="ui-sans-serif, -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10" fill="#f7f7f7" text-anchor="start" font-weight="400">b = 2,000</text>
+<text x="447.8" y="314.1" font-family="ui-sans-serif, -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="start" font-weight="400">best accuracy here</text>
+</svg>

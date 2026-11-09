@@ -189,16 +189,6 @@ assets/         the three SVGs used above
 docs/           design notes, plus the static market page (index.html)
 ```
 
-## Charts
-
-Both figures are standalone SVG generated with the standard library, in the
-palette and type of the tenr landing page. No plotting dependency, no external
-font, no CDN.
-
-```bash
-python examples/make_charts.py        # rewrites assets/*.svg and docs/index.html
-```
-
 ## Tests
 
 ```bash

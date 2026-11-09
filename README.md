@@ -157,10 +157,10 @@ a private-group prediction market, where it prices real trades. This repository
 is the standalone implementation: the cost function, the quoting layer, and the
 tests, with the product layer removed.
 
-It is developed alongside **tenr**, a research kit for honest empirical work.
-The depth study is that method applied to a mechanism question: state the
-question, use a proper score, count the trials, and report the cost next to the
-result.
+**Research context.** The method comes from **tenr**, a research kit for honest
+empirical work: ask a falsifiable question, score it with a proper rule, count
+the trials, and report the cost next to the result. The depth study above is
+that method applied to a mechanism question.
 
 ---
 

@@ -1,12 +1,32 @@
 # lmsr
 
-A numerically honest LMSR market maker. Fixed depth, exact prices, and a loss
-bound you can prove in one line.
+A self-contained market maker for the Logarithmic Market Scoring Rule.
 
-The engine behind [probable.fun](https://github.com/Jdave211/probable.fun), a
-private-group prediction market, separated from the product around it. Same
-mechanism; no framework, no database, no hidden transforms. Stdlib only, 57
-tests, Python 3.9+.
+Exact prices, a bounded worst case, and 57 tests that assert equalities instead
+of tolerances. Standard library only, Python 3.9+.
+
+A prediction market needs a counterparty that will quote any outcome at any
+time and cannot be picked off. LMSR supplies one with a single convex cost
+function over one state vector. This repository is that function and the layer
+around it: quoting, bundles, NO contracts, fees. No order book, no matching
+engine, no database, no product code.
+
+---
+
+## What it guarantees
+
+| Property | Statement | Test |
+|---|---|---|
+| Prices sum to one | `p_i = exp(q_i/b) / Σ exp(q_j/b)` | `test_prices_sum_to_one` |
+| The prior is the price | opening at `p` is exact to 1e-12 | `test_seed_is_exactly_the_inverse` |
+| Path independence | any route to `q` costs `C(q') - C(q)` | `test_one_trade_equals_ten` |
+| Bounded loss | max loss `= -b·ln(min p0)` | `test_informed_prior_raises_the_bound` |
+| No overflow | `q/b = 10^6` stays finite | `test_huge_quantities_do_not_overflow` |
+| NO is a bundle | NO trades at exactly `1 - p_i` | `test_binary_no_is_the_other_outcome` |
+| Sells are exact | closed form, no bisection | `test_shares_for_refund_inverts_sell_refund` |
+
+The tests are the specification. If a property is not in that table, it is not
+claimed.
 
 ---
 
@@ -20,25 +40,19 @@ C(q) = b * ln( sum_i exp(q_i / b) )
 p_i  = exp(q_i / b) / sum_j exp(q_j / b)
 ```
 
-The cost of a trade is `C(q_end) - C(q_start)`. So cost depends on where you
-end up and never on the route. That is not a nice-to-have; it is why the engine
-can be tested with exact equalities instead of tolerances, and why every
-classical invariant is a consequence rather than a promise:
+The cost of a trade is `C(q_end) - C(q_start)`. Cost depends on where you end
+up, never on the route. That is not a nicety; it is why every invariant above
+is a consequence of one function rather than a promise made in six places.
 
-- prices sum to 1,
-- `C` is convex,
-- buying in ten pieces costs the same as buying in one,
-- the maker's worst case has a closed form.
-
-`b` is **depth**. It is chosen once, when the market opens, and never changes.
-It is not a budget.
+`b` is **depth**. It is chosen when the market opens and never changes. It is
+not a budget.
 
 <img src="assets/probability-path.svg" alt="A binary market: probability of YES and NO over thirty trades" width="100%">
 
 *A binary market, opened at 50/50, after thirty simulated participants. The two
 lines are one event and its complement. The maker's worst case is printed on the
 card, because a probability without its risk is a sales pitch. Live demo:
-[jdave211.github.io/probable-lmsr](https://jdave211.github.io/probable-lmsr/).*
+[jdave211.github.io/lmsr](https://jdave211.github.io/lmsr/).*
 
 ---
 
@@ -53,7 +67,7 @@ m.prices          # (0.3, 0.7) -- exactly what you asked for
 m.max_loss        # 601.99 -- b * -ln(0.3), not b
 m.buy("rain", 120)             # shares
 m.buy_for_cash("rain", 50.0)   # cash, fee included
-m.buy_no("rain", 40)           # NO is a bundle, each contract pays 1
+m.buy_no("rain", 40)           # 40 NO contracts, each pays 1
 m.worst_case_loss              # <= m.max_loss, always
 ```
 
@@ -64,18 +78,25 @@ q = lmsr.seed_quantities([0.25, 0.25, 0.5], b=2_000)
 # q_i = b * ln(p_i): the exact inverse of the price map
 ```
 
-Pick a depth from the risk you will accept, not the other way round:
+Choose depth from the risk you will accept:
 
 ```python
-b = lmsr.b_for_loss(max_loss_amount=10_000, n_outcomes=4)  # ~7,213
+b = lmsr.b_for_loss(max_loss_amount=10_000, n_outcomes=4)  # 7,213
+```
+
+Both cash quotes are closed form:
+
+```
+buy  delta shares for cash c:  delta = b * ln(1 + (e^{c/b} - 1) / p_i)
+sell delta shares for cash c:  delta = -b * ln(1 - (1 - e^{-c/b}) / p_i)
 ```
 
 ---
 
 ## The loss bound
 
-The figure normally quoted is `b * ln(n)`. That is the special case of a market
-opening at equal prices. The general bound is:
+The figure usually quoted is `b * ln(n)`. That is one case of the general
+bound:
 
 ```
 max loss = -b * ln( min_i p0_i )
@@ -87,53 +108,31 @@ Derivation. If outcome `k` wins, the maker's loss is
 (q_k - q0_k) - (C(q) - C(q0))
 ```
 
-and since `C(q) >= q_k` for every `q`, the first term is at most zero. So the
-loss is at most `C(q0) - q0_k = -b * ln(p0_k)`. Take the worst `k`.
+and `C(q) >= q_k` for every `q`, so the first term is at most zero. The loss is
+therefore at most `C(q0) - q0_k = -b * ln(p0_k)`. Take the worst `k`.
 
-Two consequences that matter in practice:
+Two consequences:
 
-1. **Seeding an informed prior is a position.** Opening a 0.1% longshot at
-   `b = 20,000` risks ~138,000, not the ~13,900 that `b * ln(2)` suggests.
-2. **The bound holds for every trade sequence, bundles included**, because a
-   bundle is just a step in `q`. There is no trade type that escapes it.
+1. **An informed prior is a position.** Opening a 0.1% longshot at
+   `b = 20,000` risks 138,000, not the 13,900 that `b * ln(2)` suggests.
+2. **The bound covers every trade sequence, bundles included**, because a
+   bundle is a step in `q`. No trade type escapes it.
 
-That is why "NO" is implemented as a bundle rather than with separate
-arithmetic: the bound is a property of the state, so it survives only if every
-trade is a state update.
-
----
-
-## What changed when the engine left the product
-
-`probable.fun` is a live product, and every choice below was reasonable inside
-it. They stop being reasonable when the same mechanism has to be read, tested
-and reused, so moving the engine out meant deciding them again. None of this is
-a claim that the product was wrong; it is a record of what a library needs that
-a product can absorb.
-
-| # | In the product | As a library |
-|---|---|---|
-| 1 | `b` was floored at a per-market default, so a creator could raise depth but not lower it | `b` is required; no default, no floor |
-| 2 | The field surfaced as "liquidity" was `b`, which is not the amount at risk | `max_loss` is `-b·ln(min p)`; `b_for_loss` inverts it |
-| 3 | `math.exp(q/b)` could overflow past ~709, and longshots could underflow to 0 | log-sum-exp throughout; exact log-prices |
-| 4 | Opening probabilities were floored and softened toward equal before trading | the prior is the price, to 1e-12; softening is opt-in |
-| 5 | "Buy NO" used complement arithmetic built outside the cost function | NO is the bundle of every other outcome, priced at `1 - p_i` |
-| 6 | Sells used a 60-step bisection, with no path-independence test | closed forms, plus tests asserting one trade == ten |
-
-Full write-up with the reasoning and the test that pins each one:
-[`docs/design.md`](docs/design.md).
+That is why NO is a bundle rather than separate arithmetic: the bound is a
+property of the state, so it holds only if every trade is a state update.
 
 ---
 
 ## Does depth buy accuracy?
 
-Run `python examples/depth_study.py`. It simulates traders with noisy beliefs
-and scores the final prices with a proper rule (Brier). The short answer is
-that depth has an optimum, and it is not "as deep as possible".
+`python examples/depth_study.py` simulates traders with noisy beliefs and
+scores the resulting prices with a proper rule (Brier). Depth has an optimum,
+and it is not "as deep as possible".
 
 <img src="assets/depth-frontier.svg" alt="Expected Brier score against worst-case maker loss" width="100%">
 
-Binary market, truth 80/20, opening at 50/50, 30 traders spending 150 each:
+Binary market, truth 80/20, opening at 50/50, 30 traders spending 150 each,
+400 replications per point:
 
 | b | max loss | expected Brier | loss used |
 |---:|---:|---:|---:|
@@ -141,14 +140,27 @@ Binary market, truth 80/20, opening at 50/50, 30 traders spending 150 each:
 | 2,000 | 1,386 | **0.341** | 50% |
 | 50,000 | 34,657 | 0.458 | 10% |
 
-Too shallow amplifies belief noise; too deep buys underreaction. The minimum is
-where price impact matches the information the traders actually have.
+Too shallow amplifies belief noise; too deep buys underreaction. The minimum
+sits where price impact matches the information the traders actually have.
 
 A second result, in [`examples/depth_results.md`](examples/depth_results.md):
-scale the traders' budgets with the maker's capacity and accuracy becomes
-roughly *flat* in depth from `b = 100` to `b = 50,000`, while the loss bound
-rises 500×. Depth is the price of a given amount of information, not a quality
-setting.
+scale trader budgets with the maker's capacity and accuracy is roughly *flat*
+in depth from `b = 100` to `b = 50,000`, while the loss bound rises 500×. Depth
+is the price of a given amount of information, not a quality setting.
+
+---
+
+## Context
+
+The same mechanism runs in [probable.fun](https://github.com/Jdave211/probable.fun),
+a private-group prediction market, where it prices real trades. This repository
+is the standalone implementation: the cost function, the quoting layer, and the
+tests, with the product layer removed.
+
+It is developed alongside **tenr**, a research kit for honest empirical work.
+The depth study is that method applied to a mechanism question: state the
+question, use a proper score, count the trials, and report the cost next to the
+result.
 
 ---
 
@@ -160,21 +172,20 @@ lmsr/
   market.py     stateful market: buy, sell, bundles, NO, fees, history
   scoring.py    Brier, log loss, calibration
   simulate.py   noisy traders, for the study
-tests/          57 exact-property tests
+tests/          57 tests, most of them exact properties
 examples/       depth study, chart generator, generated results
 assets/         the two SVGs used above
 docs/           design notes, plus the static market page (index.html)
-docs/design.md  the six changes, with the test that pins each
 ```
 
 ## Charts
 
-The two figures are standalone SVG generated with the standard library, in the
+Both figures are standalone SVG generated with the standard library, in the
 palette and type of the tenr landing page. No plotting dependency, no external
 font, no CDN.
 
 ```bash
-python examples/make_charts.py        # rewrites assets/*.svg and demo/market.html
+python examples/make_charts.py        # rewrites assets/*.svg and docs/index.html
 ```
 
 ## Tests
@@ -183,16 +194,6 @@ python examples/make_charts.py        # rewrites assets/*.svg and demo/market.ht
 python -m unittest discover -s tests -v
 python examples/depth_study.py
 ```
-
-The tests are the specification. They assert exact properties (prices sum to
-one, a trade costs the same in ten pieces as in one, worst-case loss never
-exceeds the bound), not approximate behaviour.
-
-## Provenance
-
-Extracted from [probable.fun](https://github.com/Jdave211/probable.fun) (MIT),
-where the engine runs inside a full product. This is the pricing mechanism
-alone: no product code, no database, no API.
 
 ## License
 

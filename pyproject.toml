@@ -3,9 +3,9 @@ requires = ["setuptools>=61"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "lmsr-engine"
+name = "lmsr"
 version = "0.1.0"
-description = "A numerically honest LMSR market maker: fixed depth, exact prices, provable loss bound."
+description = "A self-contained LMSR market maker: exact prices, bounded loss, property tests."
 readme = "README.md"
 requires-python = ">=3.9"
 license = { text = "MIT" }
@@ -20,8 +20,8 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/Jdave211/probable-lmsr"
-Source = "https://github.com/Jdave211/probable-lmsr"
+Homepage = "https://github.com/Jdave211/lmsr"
+Source = "https://github.com/Jdave211/lmsr"
 
 [tool.setuptools.packages.find]
 include = ["lmsr*"]

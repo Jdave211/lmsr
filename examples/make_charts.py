@@ -248,7 +248,7 @@ DEMO = """<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>probable-lmsr — market</title>
+<title>lmsr — market</title>
 <style>
   :root { color-scheme: dark; }
   * { box-sizing: border-box; }
@@ -278,7 +278,7 @@ DEMO = """<!doctype html>
 </head>
 <body>
 <main>
-  <div class="top"><span>probable-lmsr</span><a href="https://github.com/Jdave211/probable-lmsr">source</a></div>
+  <div class="top"><span>LMSR</span><a href="https://github.com/Jdave211/lmsr">source</a></div>
   <div class="card">
 $svg
   </div>

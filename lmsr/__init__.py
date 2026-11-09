@@ -1,8 +1,7 @@
-"""A numerically honest LMSR market maker.
+"""A self-contained LMSR market maker.
 
-Extracted from probable.fun, where the mechanism was correct in spirit and
-coupled to a FastAPI app. This is the mechanism alone: no framework, no
-database, no hidden transforms.
+Exact prices, a bounded worst case, and property tests that assert equalities
+instead of tolerances. No framework, no database, no product layer.
 """
 
 from .core import (

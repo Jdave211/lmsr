@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>probable-lmsr — market</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #000; color: #f7f7f7;
+    font: 400 16px/1.55 ui-sans-serif, -apple-system, "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased; }
+  main { width: min(820px, 100% - 40px); margin: 0 auto; padding: 56px 0 88px; }
+  .top { display: flex; justify-content: space-between; align-items: baseline;
+    font: 400 12px/1.45 ui-monospace, SFMono-Regular, Menlo, monospace;
+    color: #adadad; text-transform: uppercase; letter-spacing: .08em; }
+  .top a { color: #adadad; text-decoration: none; border-bottom: 1px solid #292929; padding-bottom: 2px; }
+  .card { margin-top: 22px; }
+  .card svg { display: block; width: 100%; height: auto; }
+  .rows { border: 1px solid #292929; border-top: 0; }
+  .row { display: flex; justify-content: space-between; align-items: center;
+    padding: 18px 24px; border-top: 1px solid #292929; }
+  .row:first-child { border-top: 0; }
+  .k { display: flex; align-items: center; gap: 10px; font-size: 15px; }
+  .dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+  .dot.yes { background: #f7f7f7; }
+  .dot.no { background: #adadad; }
+  .v { font: 500 30px/1 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: -.02em; }
+  footer { margin-top: 52px; font: 400 12px/1.7 ui-monospace, SFMono-Regular, Menlo, monospace; color: #777; }
+  footer code { color: #adadad; }
+  @media (max-width: 520px) { .v { font-size: 24px; } .row { padding: 15px 18px; } }
+</style>
+</head>
+<body>
+<main>
+  <div class="top"><span>probable-lmsr</span><a href="https://github.com/Jdave211/probable-lmsr">source</a></div>
+  <div class="card">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 468" width="880" height="468" role="img" aria-label="A binary market: probability of YES and NO over thirty trades">
+<rect width="880" height="468" fill="#000000"/>
+<rect x="0.5" y="0.5" width="879" height="467" rx="2" fill="none" stroke="#292929"/>
+<text x="32.0" y="38.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="9.5" fill="#8a8a8a" text-anchor="start" font-weight="400" letter-spacing="1.6">LMSR  ·  BINARY MARKET</text>
+<text x="32.0" y="72.0" font-family="Georgia, 'Times New Roman', serif" font-size="26" fill="#f7f7f7" text-anchor="start" font-weight="400">Will it rain tomorrow?</text>
+<circle cx="35.0" cy="100.0" r="3.2" fill="#f7f7f7"/>
+<text x="46.0" y="104.0" font-family="ui-sans-serif, -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="12.5" fill="#f7f7f7" text-anchor="start" font-weight="400">YES 69.5%</text>
+<circle cx="155.0" cy="100.0" r="3.2" fill="#adadad"/>
+<text x="166.0" y="104.0" font-family="ui-sans-serif, -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="12.5" fill="#adadad" text-anchor="start" font-weight="400">NO 30.5%</text>
+<line x1="58.0" y1="316.5" x2="800.0" y2="316.5" stroke="#292929" stroke-width="0.8"/>
+<text x="48.0" y="320.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10" fill="#8a8a8a" text-anchor="end" font-weight="400">25%</text>
+<line x1="58.0" y1="261.0" x2="800.0" y2="261.0" stroke="#292929" stroke-width="0.8"/>
+<text x="48.0" y="264.5" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10" fill="#8a8a8a" text-anchor="end" font-weight="400">50%</text>
+<line x1="58.0" y1="205.5" x2="800.0" y2="205.5" stroke="#292929" stroke-width="0.8"/>
+<text x="48.0" y="209.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10" fill="#8a8a8a" text-anchor="end" font-weight="400">75%</text>
+<line x1="58.0" y1="372.0" x2="800.0" y2="372.0" stroke="#292929" stroke-width="0.8"/>
+<path d="M 58.00,261.00 L 82.73,269.02 L 107.47,276.46 L 132.20,283.36 L 156.93,289.77 L 181.67,295.71 L 206.40,301.22 L 231.13,290.30 L 255.87,296.20 L 280.60,301.68 L 305.33,306.76 L 330.07,311.47 L 354.80,315.85 L 379.53,319.90 L 404.27,307.63 L 429.00,312.28 L 453.73,316.59 L 478.47,320.60 L 503.20,324.31 L 527.93,327.76 L 552.67,314.91 L 577.40,303.00 L 602.13,307.98 L 626.87,296.57 L 651.60,285.98 L 676.33,292.19 L 701.07,297.96 L 725.80,287.27 L 750.53,293.39 L 775.27,299.07 L 800.00,304.34" fill="none" stroke="#adadad" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M 58.00,261.00 L 82.73,252.98 L 107.47,245.54 L 132.20,238.64 L 156.93,232.23 L 181.67,226.29 L 206.40,220.78 L 231.13,231.70 L 255.87,225.80 L 280.60,220.32 L 305.33,215.24 L 330.07,210.53 L 354.80,206.15 L 379.53,202.10 L 404.27,214.37 L 429.00,209.72 L 453.73,205.41 L 478.47,201.40 L 503.20,197.69 L 527.93,194.24 L 552.67,207.09 L 577.40,219.00 L 602.13,214.02 L 626.87,225.43 L 651.60,236.02 L 676.33,229.81 L 701.07,224.04 L 725.80,234.73 L 750.53,228.61 L 775.27,222.93 L 800.00,217.66" fill="none" stroke="#f7f7f7" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="58.0" y1="194.4" x2="800.0" y2="194.4" stroke="#8a8a8a" stroke-width="1.0" stroke-dasharray="4 4"/>
+<text x="796.0" y="187.4" font-family="ui-sans-serif, -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="end" font-weight="400">truth 80%</text>
+<text x="58.0" y="392.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="400">0</text>
+<text x="305.3" y="392.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="400">10</text>
+<text x="552.7" y="392.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="400">20</text>
+<text x="800.0" y="392.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="400">30</text>
+<circle cx="800.0" cy="217.7" r="4.0" fill="#f7f7f7"/>
+<text x="812.0" y="221.7" font-family="ui-sans-serif, -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="11" fill="#f7f7f7" text-anchor="start" font-weight="400">70%</text>
+<circle cx="800.0" cy="304.3" r="4.0" fill="#adadad"/>
+<text x="812.0" y="308.3" font-family="ui-sans-serif, -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="11" fill="#adadad" text-anchor="start" font-weight="400">30%</text>
+<line x1="32.0" y1="414.0" x2="848.0" y2="414.0" stroke="#292929" stroke-width="0.8"/>
+<text x="32.0" y="438.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10.5" fill="#adadad" text-anchor="start" font-weight="400">b = 2,000   ·   30 trades   ·   truth 80%</text>
+<text x="848.0" y="438.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10.5" fill="#adadad" text-anchor="end" font-weight="400">worst-case loss 1,386</text>
+</svg>
+  </div>
+  <div class="rows">
+    <div class="row"><span class="k"><i class="dot yes"></i>Yes</span><span class="v">70%</span></div>
+    <div class="row"><span class="k"><i class="dot no"></i>No</span><span class="v">30%</span></div>
+  </div>
+  <footer>Static demo. Prices generated by the engine in <code>lmsr/</code>.
+  No build step, no external assets. Regenerate with <code>python examples/make_charts.py</code>.</footer>
+</main>
+</body>
+</html>

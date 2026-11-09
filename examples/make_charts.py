@@ -13,6 +13,7 @@ from __future__ import annotations
 import math
 import pathlib
 import sys
+from string import Template
 
 HERE = pathlib.Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent))
@@ -51,10 +52,11 @@ def _esc(text: str) -> str:
     )
 
 
-def _text(x, y, s, size=11, fill=MUTED, anchor="start", family=MONO, weight=400):
+def _text(x, y, s, size=11, fill=MUTED, anchor="start", family=MONO, weight=400, spacing=None):
+    extra = f' letter-spacing="{spacing}"' if spacing is not None else ""
     return (
         f'<text x="{x:.1f}" y="{y:.1f}" font-family="{family}" font-size="{size}" '
-        f'fill="{fill}" text-anchor="{anchor}" font-weight="{weight}">{_esc(s)}</text>'
+        f'fill="{fill}" text-anchor="{anchor}" font-weight="{weight}"{extra}>{_esc(s)}</text>'
     )
 
 
@@ -97,58 +99,81 @@ def _scale(v, lo, hi, a, b):
     return a + (v - lo) / (hi - lo) * (b - a)
 
 
-def _legend(items, x, y, gap=150):
-    out = []
-    for i, (label, stroke, width, dash) in enumerate(items):
-        cx = x + i * gap
-        out.append(_line(cx, y - 3, cx + 18, y - 3, stroke, width, dash))
-        out.append(_text(cx + 24, y, label, 10.5, MUTED, family=SANS))
-    return out
+# -- chart 1: the market card ------------------------------------------------
 
 
-# -- chart 1: the same traders at two depths --------------------------------
+def market_card(deep, out: pathlib.Path) -> str:
+    """A binary market as a card: question, live odds, both sides, risk.
 
+    The idiom is deliberately closer to a product readout than a research plot:
+    one question, two complementary lines, direct labels at the right edge, and
+    the maker's worst case printed where a reader will see it.
+    """
+    yes = [p[0] for p in deep["path"]]
+    no = [1.0 - y for y in yes]
+    n = max(len(yes) - 1, 1)
 
-def probability_chart(path_a, path_b, out: pathlib.Path) -> None:
-    w, h = 880, 392
-    left, right, top, bottom = 64, 26, 98, 92
-    n = max(len(path_a), len(path_b)) - 1
+    w, h = 880, 468
+    left, right, top, bottom = 58, 800, 150, 372
 
     def xv(i):
-        return _scale(i, 0, n, left, w - right)
+        return _scale(i, 0, n, left, right)
 
     def yv(p):
-        return _scale(p, 0.0, 1.0, h - bottom, top)
+        return _scale(p, 0.0, 1.0, bottom, top)
 
     body = [
-        _text(24, 34, "Same traders, two depths", 17, INK, family=SERIF),
-        _text(24, 52, "P(YES) after each trade · truth 80% · 30 traders, belief noise 0.6", 10.5, DIM, family=MONO),
+        f'<rect x="0.5" y="0.5" width="{w - 1}" height="{h - 1}" rx="2" '
+        f'fill="none" stroke="{LINE}"/>',
+        _text(32, 38, "LMSR  ·  BINARY MARKET", 9.5, DIM, spacing=1.6),
+        _text(32, 72, "Will it rain tomorrow?", 26, INK, family=SERIF),
     ]
 
-    for tick in (0.0, 0.25, 0.5, 0.75, 1.0):
+    # current odds
+    body.append(_dot(35, 100, 3.2, INK))
+    body.append(_text(46, 104, f"YES {yes[-1] * 100:.1f}%", 12.5, INK, family=SANS))
+    body.append(_dot(155, 100, 3.2, MUTED))
+    body.append(_text(166, 104, f"NO {no[-1] * 100:.1f}%", 12.5, MUTED, family=SANS))
+
+    for tick in (0.25, 0.5, 0.75):
         y = yv(tick)
-        body.append(_line(left, y, w - right, y, LINE, 0.8))
-        body.append(_text(left - 10, y + 3.5, f"{tick:.2f}", 10, DIM, "end"))
+        body.append(_line(left, y, right, y, LINE, 0.8))
+        body.append(_text(left - 10, y + 3.5, f"{tick * 100:.0f}%", 10, DIM, "end"))
+    body.append(_line(left, bottom, right, bottom, LINE, 0.8))
 
-    for i in range(0, n + 1, 10):
-        body.append(_text(xv(i), h - bottom + 18, str(i), 10, DIM, "middle"))
-
-    body.append(_poly([(xv(i), yv(p)) for i, p in enumerate(path_a)], MUTED, 1.1))
-    body.append(_poly([(xv(i), yv(p)) for i, p in enumerate(path_b)], INK, 2.0))
+    body.append(_poly([(xv(i), yv(p)) for i, p in enumerate(no)], MUTED, 1.4))
+    body.append(_poly([(xv(i), yv(p)) for i, p in enumerate(yes)], INK, 2.2))
 
     ty = yv(0.8)
-    body.append(_line(left, ty, w - right, ty, DIM, 1.0, "4 4"))
-    body.append(_text(w - right - 4, ty - 7, "truth 80%", 10, DIM, "end", SANS))
+    body.append(_line(left, ty, right, ty, DIM, 1.0, "4 4"))
+    body.append(_text(right - 4, ty - 7, "truth 80%", 10, DIM, "end", SANS))
 
-    body += _legend(
-        [
-            ("b = 2,000  (deep)", INK, 2.0, None),
-            ("b = 200  (shallow)", MUTED, 1.1, None),
-            ("truth", DIM, 1.0, "4 4"),
-        ],
-        left, h - 24, 190,
+    for i in range(0, n + 1, 10):
+        body.append(_text(xv(i), bottom + 20, str(i), 10, DIM, "middle"))
+
+    body.append(_dot(right, yv(yes[-1]), 4.0, INK))
+    body.append(_text(right + 12, yv(yes[-1]) + 4, f"{yes[-1] * 100:.0f}%", 11, INK, family=SANS))
+    body.append(_dot(right, yv(no[-1]), 4.0, MUTED))
+    body.append(_text(right + 12, yv(no[-1]) + 4, f"{no[-1] * 100:.0f}%", 11, MUTED, family=SANS))
+
+    body.append(_line(32, 414, w - 32, 414, LINE, 0.8))
+    body.append(
+        _text(
+            32, 438,
+            f"b = {deep['b']:,}   ·   {n} trades   ·   truth 80%",
+            10.5, MUTED, family=MONO,
+        )
     )
-    out.write_text(_doc(w, h, "Probability path in the same binary market at two depths", body))
+    body.append(
+        _text(w - 32, 438, f"worst-case loss {deep['max_loss']:,.0f}", 10.5, MUTED, "end", MONO)
+    )
+
+    svg = _doc(w, h, "A binary market: probability of YES and NO over thirty trades", body)
+    out.write_text(svg)
+    return svg
+
+
+# -- chart 2: what accuracy costs -------------------------------------------
 
 
 # -- chart 2: what accuracy costs -------------------------------------------
@@ -218,23 +243,87 @@ def depth_chart(fixed, out: pathlib.Path) -> None:
     out.write_text(_doc(w, h, "Accuracy against worst-case maker loss", body))
 
 
+DEMO = """<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>probable-lmsr — market</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #000; color: #f7f7f7;
+    font: 400 16px/1.55 ui-sans-serif, -apple-system, "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased; }
+  main { width: min(820px, 100% - 40px); margin: 0 auto; padding: 56px 0 88px; }
+  .top { display: flex; justify-content: space-between; align-items: baseline;
+    font: 400 12px/1.45 ui-monospace, SFMono-Regular, Menlo, monospace;
+    color: #adadad; text-transform: uppercase; letter-spacing: .08em; }
+  .top a { color: #adadad; text-decoration: none; border-bottom: 1px solid #292929; padding-bottom: 2px; }
+  .card { margin-top: 22px; }
+  .card svg { display: block; width: 100%; height: auto; }
+  .rows { border: 1px solid #292929; border-top: 0; }
+  .row { display: flex; justify-content: space-between; align-items: center;
+    padding: 18px 24px; border-top: 1px solid #292929; }
+  .row:first-child { border-top: 0; }
+  .k { display: flex; align-items: center; gap: 10px; font-size: 15px; }
+  .dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+  .dot.yes { background: #f7f7f7; }
+  .dot.no { background: #adadad; }
+  .v { font: 500 30px/1 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: -.02em; }
+  footer { margin-top: 52px; font: 400 12px/1.7 ui-monospace, SFMono-Regular, Menlo, monospace; color: #777; }
+  footer code { color: #adadad; }
+  @media (max-width: 520px) { .v { font-size: 24px; } .row { padding: 15px 18px; } }
+</style>
+</head>
+<body>
+<main>
+  <div class="top"><span>probable-lmsr</span><a href="https://github.com/Jdave211/probable-lmsr">source</a></div>
+  <div class="card">
+$svg
+  </div>
+  <div class="rows">
+    <div class="row"><span class="k"><i class="dot yes"></i>Yes</span><span class="v">$yes%</span></div>
+    <div class="row"><span class="k"><i class="dot no"></i>No</span><span class="v">$no%</span></div>
+  </div>
+  <footer>Static demo. Prices generated by the engine in <code>lmsr/</code>.
+  No build step, no external assets. Regenerate with <code>python examples/make_charts.py</code>.</footer>
+</main>
+</body>
+</html>
+"""
+
+
+def write_demo(svg: str, deep: dict, path: pathlib.Path) -> None:
+    yes = deep["prices"][0]
+    n = len(deep["path"]) - 1
+    path.write_text(
+        Template(DEMO).substitute(
+            svg=svg.rstrip(),
+            yes=f"{yes * 100:.0f}",
+            no=f"{(1 - yes) * 100:.0f}",
+            b=f"{int(deep['b']):,}",
+            n=n,
+            loss=f"{int(deep['max_loss']):,}",
+        )
+    )
+
+
 def main() -> None:
     assets = HERE.parent / "assets"
     assets.mkdir(exist_ok=True)
+    docs = HERE.parent / "docs"
+    docs.mkdir(exist_ok=True)
 
-    shallow = run_market(SKEWED_2, 200, traders=TRADERS, noise=NOISE, budget=BUDGET, seed=7)
     deep = run_market(SKEWED_2, 2_000, traders=TRADERS, noise=NOISE, budget=BUDGET, seed=7)
-    probability_chart(
-        [p[0] for p in shallow["path"]],
-        [p[0] for p in deep["path"]],
-        assets / "probability-path.svg",
-    )
+    svg = market_card(deep, assets / "probability-path.svg")
+    write_demo(svg, deep, docs / "index.html")
 
     depth_chart(_series(), assets / "depth-frontier.svg")
 
-    for name in ("probability-path.svg", "depth-frontier.svg"):
-        size = (assets / name).stat().st_size
-        print(f"wrote assets/{name}  ({size:,} bytes)")
+    for name in ("assets/probability-path.svg", "assets/depth-frontier.svg", "docs/index.html"):
+        size = (HERE.parent / name).stat().st_size
+        print(f"wrote {name}  ({size:,} bytes)")
 
 
 if __name__ == "__main__":
